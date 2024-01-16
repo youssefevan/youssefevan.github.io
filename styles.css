@@ -1,0 +1,110 @@
+
+* {
+    margin: 0;
+    padding : 0;
+    background-color: #e7e7e7;
+    color: #191919;
+}
+
+.content {
+    /*position: absolute;*/
+    width: 50%;
+    margin: auto;
+    /*border-style: solid;
+    border-color: black;*/
+}
+
+.content h2 {
+    font-family: Georgia;
+    margin: 24px;
+    color: #0c519a;
+}
+
+.content p {
+    font-family: Arial;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+/*.content p mark {
+    font-weight: bold;
+    color: #0083ff;
+}*/
+
+.content a {
+    font-family: Georgia;
+    color: #0c519a;
+}
+
+.content img {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    display: block;
+}
+
+.content ul {
+    list-style: none;
+    width: 70%;
+    margin: auto;
+}
+
+.content li {
+    float: left;
+    font-size: 20px;
+}
+
+.content li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.content li a:hover {
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #0c519a;
+    color: #0c519a;
+}
+
+.navbar ul {
+    list-style-type: none;
+}
+  
+.navbar li {
+    float: left;
+}
+  
+.navbar li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.navbar li:last-child {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    color: #333;
+    float: right;
+}
+  
+.navbar li a:hover {
+    background-color: #ccc;
+    color: #0c519a;
+}
+
+.navbar {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    font-family: Georgia;
+}
