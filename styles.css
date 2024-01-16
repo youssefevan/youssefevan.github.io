@@ -1,5 +1,6 @@
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding : 0;
     background-color: #e7e7e7;
@@ -7,11 +8,7 @@
 }
 
 .content {
-    /*position: absolute;*/
-    width: 50%;
     margin: auto;
-    /*border-style: solid;
-    border-color: black;*/
 }
 
 .content h2 {
@@ -29,11 +26,6 @@
     line-height: 28px;
 }
 
-/*.content p mark {
-    font-weight: bold;
-    color: #0083ff;
-}*/
-
 .content a {
     font-family: Georgia;
     color: #0c519a;
@@ -49,13 +41,11 @@
 
 .content ul {
     list-style: none;
-    width: 70%;
     margin: auto;
 }
 
 .content li {
-    float: left;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .content li a {
@@ -64,6 +54,7 @@
     padding: 14px 16px;
     text-decoration: none;
     color: #333;
+    background-color: #ccc;
 }
 
 .content li a:hover {
@@ -90,16 +81,11 @@
 }
 
 .navbar li:last-child {
-    display: block;
+    display: none;
     text-align: center;
     padding: 14px 16px;
     color: #333;
     float: right;
-}
-  
-.navbar li a:hover {
-    background-color: #ccc;
-    color: #0c519a;
 }
 
 .navbar {
@@ -107,4 +93,38 @@
     overflow: hidden;
     width: 100%;
     font-family: Georgia;
+}
+
+@media only screen and (min-width: 768px) {
+    .content {
+        /*position: absolute;*/
+        width: 50%;
+        margin: auto;
+        /*border-style: solid;
+        border-color: black;*/
+    }
+
+    .content ul {
+        list-style: none;
+        width: 70%;
+        margin: auto;
+    }
+
+    .navbar li:last-child {
+        display: block;
+        text-align: center;
+        padding: 14px 16px;
+        color: #333;
+        float: right;
+    }
+
+    .navbar li a:hover {
+        background-color: #ccc;
+        color: #0c519a;
+    }
+
+    .content li {
+        float: left;
+        font-size: 20px;
+    }
 }
