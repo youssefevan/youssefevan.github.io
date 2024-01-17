@@ -27,7 +27,6 @@
 }
 
 .content a {
-    font-family: Georgia;
     color: #0c519a;
 }
 
@@ -100,7 +99,7 @@
         font-family: Arial;
         margin-left: 24px;
         margin-right: 24px;
-        margin-bottom: 24px%;
+        margin-bottom: 24px;
         font-size: 16px;
         line-height: 28px;
     }
