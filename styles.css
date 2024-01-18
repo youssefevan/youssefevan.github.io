@@ -4,14 +4,14 @@
     margin: 0;
     padding : 0;
     background-color: #e7e7e7;
-    color: #191919;
 }
 
 .content {
     margin: auto;
+    color: #191919;
 }
 
-.content h2 {
+.title {
     font-family: Georgia;
     margin: 6%;
     color: #0c519a;
@@ -69,16 +69,51 @@
     font-family: Georgia;
 }
 
+.node {
+    margin: 6%;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.node span {
+    font-family: Georgia;
+    color: #0c519a;
+    font-weight: bold;
+    font-size: 24px;
+    vertical-align: middle;
+    padding-left: 12px;
+}
+
+.node img {
+    height: 100px;
+    vertical-align: middle;
+}
+
+.node-button {
+    text-decoration: none;
+    color: black;
+    
+}
+
+.node-button:hover {
+    color: #0c519a;
+}
+
 /*Desktop and Tablet*/
 @media only screen and (min-width: 768px) {
 
-    /*Content*/
-    .content {
-        /*position: absolute;*/
+    /*Title*/
+    .title {
         width: 50%;
         margin: auto;
-        /*border-style: solid;
-        border-color: black;*/
+        padding: 24px;
+    }
+
+    /*Content*/
+    .content {
+        width: 50%;
     }
 
     .content img {
@@ -87,12 +122,6 @@
         margin-right: auto;
         margin-bottom: 24px;
         display: block;
-    }
-
-    .content h2 {
-        font-family: Georgia;
-        margin: 24px;
-        color: #0c519a;
     }
 
     .content p {
@@ -140,5 +169,16 @@
     .navbar li a:hover {
         background-color: #ccc;
         color: #0c519a;
+    }
+
+    #node-container {
+        width: 50%;
+        margin: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .node {
+        margin: 0;
     }
 }
