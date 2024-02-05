@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Evan Youssef - ITCS 3162 - Project 1</title>
+    <link rel="stylesheet" href="../styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="../index.html">About Me</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../coursework.html">Coursework</a></li>
+            <li>Evan Youssef</li>
+        </ul>
+    </div>
+
+    <div class="title">
+        <h1>
+            ITCS 3162 - <span class="keeptogether">Project 1:</span>
+            <br>
+            Collecting and Exploring 5,000 Steam Reviews of Starfield
+        </h1>
+    </div>
+    <div class="content">
+        <h2>Introduction</h2>
+        <p>
+            This dataset is comprised of 5,000 Steam user reviews of the game Starfield.
+            The data will be analyzed to determine the differences between positive and
+            negative reviews. These differences will be measured using the data associated
+            with each review, which can be found on the
+            <a href="https://partner.steamgames.com/doc/store/getreviews">Steamworks Documentation</a>.
+            By default, the Steamworks API filters "off-topic" reviews that are a result
+            of review bombing.
+        </p>
+
+        <p>
+            Using this data, I aimed to answer the question:
+            What are the different characteristics of positive and negative Steam reviews?
+        </p>
+
+        <p>
+            For reference, here is my
+            <a href="project1_files.zip" download>
+                Jupyter Notebook and the full dataset
+            </a>.
+        </p>
+
+        <h2>Collecting Data</h2>
+        <p>
+            Based on
+            <a href="https://andrew-muller.medium.com/scraping-steam-user-reviews-9a43f9e38c92">
+                this guide by Andrew Muller</a>,
+            I scraped 5,000 of the most recent Steam reviews for the game Starfield.
+            I selected the game Starfield because it is a recent, high-profile game
+            with a good balance of positive and negative reviews. However, this code
+            can scrape any number of reviews from any game on Steam by inputting the
+            AppID into the <code lang="language-python">get_n_reviews()</code> function.
+            This function will return a JSON file of all n reviews and their fields.
+            The fields of each review can be found on the
+            <a href="https://partner.steamgames.com/doc/store/getreviews">
+                Steamworks Documentation</a>.
+        </p>
+        <script src="https://gist.github.com/youssefevan/e3a40d114a74fe7f4b818bcf4ac4bcfd.js"></script>
+
+        <h2>Cleaning Data</h2>
+        <p>
+            At this point, the data cleaning process had already begun in the data
+            collection phase. When scraping the data, I was able to set multiple
+            parameters through Steamworks. For example, I had excluded any non-English
+            reviews and reviews from people who had received the game for free. The
+            rest of the data cleaning process was fairly trivial because of this.
+            Since Steamworks autogenerates the metadata for each review, the data was
+            well-structured and free of null values. Furthermore, I flattened subfields
+            into their own column when converting the JSON to a CSV for easier parsing.
+        </p>
+
+        <p>
+            To finish the cleaning process, I dropped any fields that were redundant,
+            such as the <code>language</code> field, or irrelevant, such as the reviewer's SteamID.
+            I was able to narrow down the number of fields from 22 to 7.
+        </p>
+
+        <h2>Data Exploration</h2>
+        <p>
+            I used boxplots, scatterplots, and word clouds to visualize and derive
+            patterns from the data. I categorized the data visualizations into three
+            groups: interaction data, author data, and review data.
+        </p>
+        <p>
+            Each review has the following fields:<br>
+
+            <code>voted_up</code>, where <code>True</code> indicates a positive review
+            and <code>False</code> indicates a negative review;<br>
+
+            <code>votes_up</code>, indicating the number of users who like the review;<br>
+
+            <code>weighted_vote_score</code>, which represents the user-rated "helpfulness"
+            of the review on a weighted scale;<br>
+
+            <code>num_reviews</code>, indicating the number of reviews that the author has
+            written (with game per review);<br>
+
+            <code>playtime_at_review</code>, indicating the number of minutes the author
+            had spent in Starfield at the time the review was posted.
+
+        </p>
+
+        <h2>Interaction Data Visualizations</h2>
+        <p>
+            This category includes fields that represent how other users interacted with
+            each review. In this category, I compared <code>votes_up</code> and 
+            <code>weighted_vote_score</code> to whether a review was positive or negative.
+        </p>
+        <img src="../assets/project1/vu_box.png" alt="Votes up plot">
+        <img src="../assets/project1/wvs_box.png" alt="Weighted vote score plot">
+        <img src="../assets/project1/scatter.png" alt="Scatter plot">
+
+        <h2>Author Data Visualizations</h2>
+        <p>
+            This category includes fields that represent the author of each review.
+            In this category, I compared <code>num_reviews</code> and
+            <code>playtime_at_review</code> to whether a review is positive or negative.
+        </p>
+        <img src="../assets/project1/nr_box.png" alt="Number of reviews plot">
+        <img src="../assets/project1/par_box.png" alt="Playtime plot">
+
+        <h2>Review Data Visualizations</h2>
+        <p>
+            This category is comprised of the words in each review. I compared the
+            most used words in negative reviews to most used words in positive reviews.
+        </p>
+        <p>Positive reviews:</p>
+        <img src="../assets/project1/pos_cloud.png" alt="Positive reviews word cloud">
+        <p>Negative reviews:</p>
+        <img src="../assets/project1/neg_cloud.png" alt="Negative reviews word cloud">
+
+        <h2>Data Analysis</h2>
+        <p>
+            The interaction data visualizations show that negative reviews are generally
+            more interacted with than positive reviews. Both the median 
+            <code>weighted_vote_score</code> and number of <code>votes_up</code> are higher
+            in negative reviews. This speaks to Starfields' mixed-to-negative reception
+            from the Steam audience. However the difference in median <code>weighted_vote_score</code>
+            is much smaller between positive and negative reviews than the median number of
+            <code>votes_up</code>. Negative reviews appear to get far more <code>votes_up</code>
+            than positive reviews. The scatterplot also shows this difference, illustrating
+            that positive reviews are more likely to receive a higher <code>weighted_vote_score</code>
+            than a high number of <code>votes_up</code>.
+        </p>
+        <p>
+            The author data visualizations show that reviewers who post negative reviews
+            are more likely to have posted reviews from many other games. This could illustrate
+            that people who are more critical of a game's quality are more likely to speak up
+            about their experience.
+            This data also reveals that, as expected, reviewers who
+            reviewed Starfield positively played more of the game at the time of review.
+        </p>
+        <p>
+            The words in the positive review word cloud that stuck out to me were "story",
+            "combat", "weapon", and "explore". These could indicate what reviewers most
+            enjoyed about the game. However, I also noticed the word "issue" was present
+            in the word cloud. This may reveal that reviewers were willing to acknowledge
+            some of the game's shortcomings while still praising its strengths.
+            Some of the more interesting words in the negative review word cloud include
+            "loading screen", "Bethesda game", "Fallout", and "Skyrim". The first phrase,
+            "loading screen", seems to be alluding to a common critique of Starfield's frequent
+            use of loading screens to transition between sections of the game. It seems that
+            this use of loading screens is a common issue for detractors of the game. The other
+            three phrases, "Bethesda game", "Fallout", and "Skyrim" refer to the game's developer
+            and their previous successful IPs. It seems that negative reviewers could be comparing
+            Starfield to some of Bethesda's more well-received games such as The Elder Scrolls V:
+            Skyrim and some of the games from the Fallout series.
+        </p>
+        <h2>Conclusion and Impact</h2>
+        <p>
+            While I think that, overall, the correlations in this dataset are relatively weak, I think
+            that more interesting results can be found with more advanced methods. I imagine that the
+            reviews themselves could be used to train a machine learning algorithm to classify and
+            summarize reviews. However, this hypothetical algorithm would need to be carefully tuned
+            so as to not mislead consumers.
+        </p>
+        <p>
+            I think it is important to take these results with a grain of salt. Especially in the case of
+            the word clouds, it is easy to make unjustified conclusions about Starfield and its reception.
+            For example, I needed to understand the context of Bethesda and their games to understand why
+            negative reviews mentioned Skyrim and Fallout so often.
+        </p>
+    </div>
+
+</body>
+</html> 

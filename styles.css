@@ -3,7 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding : 0;
-    background-color: #e7e7e7;
+    background-color: white;
 }
 
 .content {
@@ -36,6 +36,12 @@
     margin-right: auto;
     margin-bottom: 24px;
     display: block;
+}
+
+.content h2 {
+    font-family: Georgia;
+    margin: 6%;
+    color: #0c519a;
 }
 
 .navbar ul {
@@ -72,18 +78,19 @@
 .node {
     margin: 6%;
     border-style: solid;
-    border-width: 2px;
-    border-radius: 6px;
+    border-width: 1px;
+    /*border-radius: 6px;*/
     overflow: hidden;
+    display: flex;
 }
 
-.node span {
+.node h2 {
     font-family: Georgia;
-    color: #0c519a;
-    font-weight: bold;
-    font-size: 24px;
-    vertical-align: middle;
     padding-left: 12px;
+    vertical-align: middle;
+    height: min-content;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .node img {
@@ -94,12 +101,21 @@
 .node-button {
     text-decoration: none;
     color: black;
-    
 }
 
 .node-button:hover {
     color: #0c519a;
 }
+
+span.keeptogether {
+    white-space: nowrap ;
+}
+
+code {
+    background-color: #e7e7e7;
+}
+
+
 
 /*Desktop and Tablet*/
 @media only screen and (min-width: 768px) {
@@ -109,6 +125,7 @@
         width: 50%;
         margin: auto;
         padding: 24px;
+        padding-bottom: 0px;
     }
 
     /*Content*/
@@ -126,11 +143,13 @@
 
     .content p {
         font-family: Arial;
-        margin-left: 24px;
-        margin-right: 24px;
-        margin-bottom: 24px;
+        margin: 24px;
         font-size: 16px;
         line-height: 28px;
+    }
+
+    .content h2 {
+        margin: 24px;
     }
 
 
@@ -167,7 +186,7 @@
     }
 
     .navbar li a:hover {
-        background-color: #ccc;
+        background-color: #e7e7e7;
         color: #0c519a;
     }
 
@@ -180,5 +199,6 @@
 
     .node {
         margin: 0;
+        margin-top: 24px;
     }
 }
