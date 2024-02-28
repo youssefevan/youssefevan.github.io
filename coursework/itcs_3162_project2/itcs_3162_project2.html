@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Evan Youssef - ITCS 3162 - Project 2</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="../../index.html">About Me</a></li>
+            <li><a href="../../projects.html">Projects</a></li>
+            <li><a href="../../coursework.html">Coursework</a></li>
+            <li>Evan Youssef</li>
+        </ul>
+    </div>
+
+    <div class="title">
+        <h1>
+            ITCS 3162 - <span class="keeptogether">Project 2:</span>
+            <br>
+            Using Logistical Regression to Classify Steam User Reviews
+        </h1>
+    </div>
+    <div class="content">
+        <h2>Introduction</h2>
+        <p>
+            The dataset I chose for this project is a collection of 5,000 user reviews of the
+            game Starfield from the distribution platform Steam. I selected Starfield
+            because it is a recent, high-profile game with a good balance of positive and negative
+            reviews. Going into this project, I wanted to create a way of automatically classifying
+            Starfield reviews as positive or negative and find out what type of language is most
+            common in positive and negative reviews.
+        </p>
+        <p>
+            For reference, here is my
+            <a href="project2_files.zip" download>
+                Jupyter Notebook and the full dataset
+            </a>.
+        </p>
+
+        <h2>Collecting Data</h2>
+        <p>
+            Based on
+            <a href="https://andrew-muller.medium.com/scraping-steam-user-reviews-9a43f9e38c92"
+            target="blank">this guide by Andrew Muller</a>,
+            I scraped 5,000 of the most recent Steam reviews for the game Starfield.
+            This code can scrape any number of reviews from any game on Steam by inputting the
+            AppID into the <code lang="language-python">get_n_reviews()</code> function.
+            This function will return a JSON file of all n reviews and their fields.
+            The fields of each review can be found on the
+            <a href="https://partner.steamgames.com/doc/store/getreviews">
+                Steamworks Documentation</a>.
+        </p>
+        <script src="https://gist.github.com/youssefevan/e3a40d114a74fe7f4b818bcf4ac4bcfd.js"></script>
+
+        <h2>Cleaning Data</h2>
+        <p>
+            Only the content of the review and the category (<code>voted_up</code>) of the review
+            are important for this project. All other columns in the dataset are dropped. Below is
+            the first few rows of the cleaned dataset.
+        </p>
+        <img src="./assets/cleaned_data.png">
+
+        <h2>Data Exploration</h2>
+        <p>
+            Below are the most used words in positive and negative reviews respectively.
+            This can be compared to the logistical regression model's feature coefficients later.
+        </p>
+        <p>Positive</p>
+        <img src="./assets/pos_word_by_freq.png">
+        <p>Negative</p>
+        <img src="./assets/neg_word_by_freq.png">
+
+        <h2>Modeling</h2>
+        <p>
+            This section is based on
+            <a href="https://stackabuse.com/python-for-nlp-sentiment-analysis-with-scikit-learn/"
+            target="blank">this article by Usman Malik</a> and
+            <a href="https://stackabuse.com/python-for-nlp-sentiment-analysis-with-scikit-learn/"
+            target="blank">this article by Morgan Fitzgerald</a>.
+        </p>
+        <p>
+            I elected to use logistical regression to classify the reviews. Logistical regression
+            uses a sigmoid function to create predictions on a scale of 0 to 1 based on a set of
+            independent variables using the sigmoid function
+            (<a href="https://www.ibm.com/topics/logistic-regression" target="blank">source</a>).
+            Since the words of a review can be converted into independent variables and assigned
+            weights based on frequency, this allows the logistical regression model to make predictions
+            using text instead of numerical data.
+        </p>
+        <h4>Splitting the Data</h4>
+        <p>
+            I split the dataset into two groups: a training group and a testing group.
+            The model needs to be tested on different data than it was trained on to make sure
+            it is generalizing and not memorizing. If the model is tested on the same data is is
+            trained on, it will be disproportionally effective at categorizing the reviews.
+            The training to testing dataset ratio is 5:1.
+        </p>
+
+        <h4>Vectorizing the Reviews</h4>
+        <p>
+            Because the reviews are comprised of words and not numbers, the model cannot perform
+            calculations with them. To allow the model to understand how to process words, all the
+            reviews are converted into a 2D array. Each sub-array represents an individual review,
+            and each index of the sub-array represents each word in the global vocabulary. Each index
+            stores a number representing the number of times the associated word is used in an individual
+            array.
+        </p>
+        <p>
+            For example, given these reviews:
+        </p>
+        <p>
+            <code>
+                Review 1: "this game is great"<br>
+                Review 2: "i hate this game"<br>
+                Review 3: "i like some things about this game but i dislike other things about this game"
+            </code>
+        </p>
+        <p>
+            we can collect each time an individual word is used:
+        </p>
+        <p>
+            <code>{this, game, is, great, i, hate, like, some, things, about, but, dislike}</code>
+        </p>
+        <p>
+            and count the number of time they are used in each review:
+        </p>
+        <p>
+            <code>
+                Review 1: [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]<br>
+                Review 2: [0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0]<br>
+                Review 3: [2, 2, 0, 0, 2, 0, 1, 1, 2, 2, 1, 1]<br>
+            </code>
+        </p>
+        <p>
+            However, some words are repeated very often but do not affect the sentiment of the review.
+            Words such as "the" and "and" are good examples of this. These words can muddy the importance
+            of each word on the sentiment of the review. Instead of creating the feature vectors based
+            on frequency, I used TF-TDF vectorization, which uses an algorithm to normalize the importance
+            of frequency on the sentiment of the document. More about TF-IDF can be found
+            <a href=
+            "https://www.geeksforgeeks.org/understanding-tf-idf-term-frequency-inverse-document-frequency/"
+            target="blank">here</a>.
+        </p>
+        <p>
+            Below is the matrix of features vectors using TF-IDF.
+        </p>
+        <img src="./assets/matrix.png">
+
+        <h4>Training and Evaluating the Model</h4>
+        <p>
+            After spltting the data, the trainig set is fed into the logistical regression model
+            (using Sci Kit Learn).
+        </p>
+        <p>
+            After training the model, I fed the testing split of the vectorized reviews into the
+            model to be classified. I used F1 scoring to evaluate the performance of the model.
+            An F1 score is calculated using the harmonic mean of precision and recall, and is calculated
+            using the formula below
+            (<a href="https://lifewithdata.com/2022/02/22/what-is-f1-score-in-machine-learning/">source</a>).
+            I am using and F1 score to evaluate the model because it more accurately determines a
+            model's performance when the dataset is imbalanced, and is often used to score logistical
+            regression models. More about F1 scores and why to use them can be found
+            <a href="https://www.statology.org/f1-score-vs-accuracy/">here</a>.
+        </p>
+        <img src="https://i0.wp.com/lifewithdata.com/wp-content/uploads/2022/02/f11.jpeg?w=1067&ssl=1">
+        <p>
+            The highest I could get the model to score was 81%, which is pretty low. After struggling
+            to improve the model, I decided to investigate the feature coefficients. Feature coefficients
+            are the weights assigned to each feature as calculated by the logistical regression model.
+            Features with high coefficients are strongly associeted with positive reviews and features
+            with low coefficients are strongly associated with negative reviews.
+        </p>
+        
+        <h4>Feature Coefficients</h4>
+        <p>
+            I combined the model's vocabulary and the coefficients into a Data Frame so I could sort
+            and visualize the features and their coefficients. Below are the words most associated
+            with positive reviews and their coefficients, followed by the words most associated with
+            negative reviews and their coefficients. I expected to see words such as "good" or "fun"
+            with the highest coefficients while words such as "boring" or "bad" with the lowest
+            coefficients. However, most of the words in the top and bottom 5 had no strong negative
+            or positive connotations. In fact, some of the features with the highest coefficients,
+            such as "mid" and "waste," have negative connotations.
+        </p>
+        <img src="./assets/coef.png">
+        <p>
+            Below are the words clouds for the most positive and most negative features by coefficients.
+            Compared to the word clouds that I created based on frequency per calassification, the
+            words clouds below seem arbitrary and unclear.
+        </p>
+        <p>Positive</p>
+        <img src="./assets/pos_word_coef.png">
+        <p>Negative</p>
+        <img src="./assets/neg_word_coef.png">
+        
+        <h2>Conclusion</h2>
+        <h4>Results</h4>
+        <p>
+            By looking at the feature coefficients, I can tell that the logistical regression
+            model had difficulties picking up on which words were most associated with positive
+            and negative reviews. I think this could be one of the main reasons that the model
+            performed poorly. However, I am not sure which part of the project is causing this issue.
+            Because of the inaccuracy of the model and the confusing feature coefficients, I am
+            not confident in the results of this project and therefore, am not able to determine my
+            initial question: What words are most associated with positive and negative reviews?
+        </p>
+        
+        <h4>Impact</h4>
+        <p>
+            This project has shown me that logistical regression models need to be refined by
+            knowledgeable researchers in order to be used for reliable text classification. I
+            believe that my lack of understanding and expertise in Natural Language Processing
+            and logistical regression led me to make errors that I have not been able to correctly
+            identify. I think it is important for those who intend to machine learning to analyze
+            data to have a full understanding of their data and their processes so as to not
+            misunderstand the results of their experiments. For example, if Steam were to use my
+            experiment to better understand user reviews, they would get an inaccurate and incomplete
+            picture of the ways in which users write about games.
+        </p>
+    </div>
+
+</body>
+</html> 
