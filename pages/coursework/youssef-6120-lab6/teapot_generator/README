@@ -1,0 +1,4 @@
+The files in this folder contains the needed code to generate th teapot's 
+vertices and normals, which are returned as a 2 element array.
+
+Each vertex is 4 components, each normal is 4 components, with 4th component as 0);
