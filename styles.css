@@ -220,6 +220,10 @@ footer a {
     color: white;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 /*Desktop and Tablet*/
 @media only screen and (max-width: 768px) {
 
