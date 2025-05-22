@@ -1,123 +1,259 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Evan Youssef - Portfolio</title>
-    <link rel="stylesheet" href="/styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evan Youssef | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script type="text/javascript" src="./youssef-6120-lab6/common_files/mat_vec.js"></script>
+  <script type="text/javascript" src="./youssef-6120-lab6/common_files/utils.js"></script>
+  <script type="text/javascript" src="./youssef-6120-lab6/common_files/xform2.js"></script>
+  <script type="text/javascript" src="./youssef-6120-lab6/lab6.js"></script>
+
+  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/MV.js"></script>
+  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/createTeapotData.js"></script>
+  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/patches.js"></script>
+  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/vertices.js"></script>
+
+
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 vPosition, vNormal;
+    attribute vec3 vColor;
+    varying vec4 color;
+
+    uniform mat4 M_comp;
+    uniform mat4 M_model;
+    uniform mat4 M_camera;
+    uniform mat4 M_projection;
+
+    uniform vec4 lightPos;
+
+    varying vec3 N, L, E;
+
+    void main() {
+      mat4 M_modelView = M_camera * M_model;
+      vec3 pos = -(M_modelView * vPosition).xyz;
+      vec3 light = lightPos.xyz;
+
+      L = normalize(light - pos);
+      E = normalize(pos);
+      N = normalize((M_modelView*vNormal).xyz);
+
+      gl_Position = M_projection*M_modelView*vec4(vPosition.xyz, 1.);
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+
+    precision mediump float;
+    varying vec4 color;
+
+    uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+    uniform float shininess;
+    varying vec3 N, L, E;
+
+    void main() {
+      
+      vec4 fColor;
+
+      vec3 H = normalize(L+E);
+      vec4 ambient = ambientProduct;
+      float Kd = max(dot(L, N), 0.0);
+      vec4 diffuse = Kd * diffuseProduct;
+
+      float Ks = pow(max(dot(N, H), 0.0), shininess);
+      vec4 specular = Ks * specularProduct;
+
+      if (dot(L, N) < 0.0) {
+        specular = vec4(0.0, 0.0, 0.0, 1.0);
+      }
+
+      fColor = ambient + diffuse + specular;
+      fColor.a = 1.0;
+
+      gl_FragColor = fColor;
+    }
+  </script>
 </head>
 
 <body>
+  <header>
+    <h1>Evan Youssef</h1>
+    <p>Computer Science Major at UNC Charlotte</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </header>
 
-    <div class="navbar">
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I'm Evan Youssef, a graduate student majoring in Computer Science at UNC Charlotte, concentrating on AI, Robotics,
+      and Gaming.
+      I recently graduated from UNC Charlotte with a Bachelor's Degree in Computer Science, and plan to earn my Master's
+      degree by December of 2025.
+      <br><br>
+      Find me here:
+      <a href="https://www.linkedin.com/in/evan-youssef-600070229/" target="_blank">LinkedIn</a> |
+      <a href="https://github.com/youssefevan/" target="_blank">GitHub</a> |
+      <a href="https://store.steampowered.com/curator/45180747" target="_blank">Steam</a> |
+      <a href="https://evan12811.itch.io/" target="_blank">Itch.io</a> |
+      evanyoussef8@gmail.com
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>Python, C/C++, Java, JavaScript</li>
+      <li>Game Design & Development</li>
+      <li>Software Design & Development</li>
+      <li>Machine Learning & AI</li>
+      <li>Godot & Unity</li>
+      <li>Scrum/Agile Development</li>
+    </ul>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="filters">
+      <button class="active" onclick="filterProjects(this, 'all')">All</button>
+      <button onclick="filterProjects(this, 'game')">Games</button>
+      <button onclick="filterProjects(this, 'course')">Coursework</button>
+      <!-- <button onclick="filterProjects(this, 'demo')">Demos</button> -->
+    </div>
+    <div class="project-grid">
+
+      <div class="project course">
+        <h3>NinerPlanner</h3>
+        <p>A course and schedule manager for UNC Charlotte students and faculty.</p>
+        <p>My contributions include the Visual Course Schedule, as well as portions of the Course Information and
+          Registered Course Plan functionalities and styling. This project was developed for a Software Systems & Design
+          Course.</p>
         <ul>
-            <li>
-                <a href="/index.html">
-                    <img src="/assets/home.png" alt="Home">
-                </a>
-            </li>
-            <li class="name">// Evan Youssef</a></li>
-            <li class="social">
-                <a href="https://evan12811.itch.io/" target="_blank">
-                    <img src="/assets/itvh.io_logo.svg" alt="Itch.io">
-                </a>
-            </li>
-            <li class="social">
-                <a href="https://store.steampowered.com/curator/45180747" target="_blank">
-                    <img src="/assets/steam_logo.png" alt="Steam">
-                </a>
-            </li>
-            <li class="social">
-                <a href="https://github.com/youssefevan/" target="_blank">
-                    <img src="/assets/github_logo.png" alt="GitHub">
-                </a>
-            </li>
-            <li class="social">
-                <a href="https://www.linkedin.com/in/evan-youssef-600070229/" target="_blank">
-                    <img src="/assets/linkedin_logo.png" alt="LinkedIn">
-                </a>
-            </li>
+          <li>Developed Spring 2025</li>
+          <li>Team Project</li>
+          <li>MongoDB, NodeJS, Expo</li>
         </ul>
+        <div class="project-links"><a target="_blank" href="https://github.com/lnalewaja/NinerPlanner">GitHub</a></div>
+      </div>
+
+      <div class="project game">
+        <h3>Cave Crawler 2</h3>
+        <p>A 2D-platformer game made in Godot, published on Steam.</p>
+        <p>I developed this as a hobby project to sharpen my game developments skills. The game includes 15 levels, 3
+          boss fights, unique enemies, and a built-in level editor.</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/VspCS4ftyAM?si=oRiTZ_X1Hy2uchyS"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <ul>
+          <li>Released October 2024</li>
+          <li>Solo Project</li>
+          <li>Godot Engine</li>
+        </ul>
+        <div class="project-links"><a target="_blank"
+            href="https://store.steampowered.com/app/3000490/Cave_Crawler_2/">Steam</a> |
+          <a target="_blank" href="https://github.com/youssefevan/cave-crawler-2">GitHub</a>
+        </div>
+      </div>
+
+      <div class="project course">
+        <h3>Local Illumination Model</h3>
+        <p>A local illumination model written in JavaScript.</p>
+        <p>I developed this project for a Computer Graphics course, focusing on the graphics pipline including
+          implementation.</p>
+        <ul>
+          <li>Developed Fall 2024</li>
+          <li>Solo Project</li>
+          <li>JavaScript</li>
+        </ul>
+
+        <div class="canvas-wrapper">
+          <canvas id="gl-canvas" width="300" height="300">
+            Oops ... your browser doesn't support the HTML5 canvas element.
+          </canvas>
+        </div>
+        <div id="teapot-controls">
+          <label>Light intensity (diffuse)<br>
+            <input type="range" min="1" max="100" value="70" class="slider" id="diffuse">
+          </label><br>
+          <label>Light intensity (specular)<br>
+            <input type="range" min="1" max="100" value="70" class="slider" id="specular">
+          </label><br>
+          <label>Shininess<br>
+            <input type="range" min="1" max="100" value="10" class="slider" id="shine">
+          </label><br>
+          <label>Diffuse reflectivity<br>
+            <input type="color" id="diffRef" value="#356dbf">
+          </label><br>
+          <label>Specular reflectivity<br>
+            <input type="color" id="specRef" value="#122162">
+          </label>
+        </div>
+      </div>
+
+      <div class="project game">
+        <h3>Pyramid Pirate</h3>
+        <p>A top-down roguelike rated #1 overall in the Spring 2024 UNCC Game Jam.</p>
+        <video width="100%" controls title="Pyramid Pirate">
+          <source src="/assets/videos/Pyramid Pirate Gameplay.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <ul>
+          <li>Released Spring 2024</li>
+          <li>Solo Project</li>
+          <li>Godot Engine</li>
+        </ul>
+        <div class="project-links"><a target="_blank" href="https://evan12811.itch.io/pyramid-pirate">Play
+            on Itch.io</a> | <a target="_blank" href="https://itch.io/jam/2024-spring-game-jam/rate/2591033">Game Jam
+            Page</a></div>
+      </div>
+
+      <div class="project game">
+        <h3>Winding Woods</h3>
+        <p>A top-down action-adventure developed in 48 hours for the Spring 2023 UNCC Game Jam.</p>
+        <p>My contributions include gameplay systems such as movements, combat, and level-looping.</p>
+        <video width="100%" controls title="Winding Woods">
+          <source src="assets/videos/Winding Woods Gameplay.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <ul>
+          <li>Released Spring 2023</li>
+          <li>Team Project</li>
+          <li>Godot Engine</li>
+        </ul>
+        <div class="project-links"><a target="_blank" href="https://evan12811.itch.io/winding-woods">Play
+            on Itch.io</a> | <a target="_blank" href="https://itch.io/jam/2023-spring-game-jam/rate/2032526">Game Jam
+            Page</a>
+        </div>
+      </div>
+
+      <!--
+      <div class="project demo">
+        <h3>Demo Test</h3>
+        <p>Description...</p>
+      </div>
+      -->
+
     </div>
+  </section>
 
-    <div class="title-container">
-        <div class="title-text">// About Me</div>
-    </div>
+  <footer>
+    evanyoussef8@gmail.com<br>
+    <a href="https://www.linkedin.com/in/evan-youssef-600070229/" target="_blank">LinkedIn</a> |
+    <a href="https://github.com/youssefevan/" target="_blank">GitHub</a> |
+    <a href="https://store.steampowered.com/curator/45180747" target="_blank">Steam</a> |
+    <a href="https://evan12811.itch.io/" target="_blank">Itch.io</a>
+  </footer>
 
-    <div class="content-container">
-        <div class="content-text">
-            I'm Evan Youssef, a graduate student majoring in Computer Science at UNC Charlotte,
-            concentrating on AI, Robotics, and Gaming. I recently graduated from UNC Charlotte
-            with a Bachelor's Degree in Computer Science, and plan to earn my Master's degree by
-            December of 2025.
-            <br><br>
-            Some of my recent courses include Computer Graphics, Game Design and Development,
-            and Parallel Programming, where I've utilized languages such as Python,
-            <span class="nowrap">C/C++,</span> Java, and Javascript. I create video games in my
-            free time, publishing 2 games on
-            <a href="https://store.steampowered.com/curator/45180747" target="_blank">Steam</a>
-            and many others on
-            <a href="https://evan12811.itch.io/" target="_blank">Itch.io</a>.
-            I primarily use the Godot engine, but I'm also familiar with Unity.
-            <br><br>
-            Below are some of my favorite projects that I've worked on, and you can check out my other
-            work on <a href="https://github.com/youssefevan/" target="_blank">GitHub</a>.
-        </div>
-    </div>
-
-    <div class="title-container">
-        <div class="title-text">// Projects</div>
-    </div>
-
-    <div class="content-container" id="gallery">
-        <div class="item">
-            <a href="/pages/projects/cave_crawler_2.html">
-                <img src="/assets/homepage_thumbnails/cave_crawler_2.png" alt="Cave Crawler 2">
-                <div class="image-cover"></div>
-                <div class="item-desc">Cave Crawler 2</div>
-            </a>
-        </div>
-        <div class="item">
-            <a href="/pages/coursework/youssef-6120-lab6/lab6.html">
-                <img src="/assets/homepage_thumbnails/local_illumination.png" alt="Teapot">
-                <div class="item-desc">Local Illumination Model</div>
-            </a>
-        </div>
-        <div class="item">
-            <a href="/pages/projects/pyramid_pirate.html">
-                <img src="/assets/homepage_thumbnails/pyramid_pirate.png" alt="Pyramid Pirate">
-                <div class="item-desc">Pyramid Pirate</div>
-            </a>
-        </div>
-        <div class="item">
-            <a href="./pages/projects/winding_woods.html">
-                <img src="/assets/homepage_thumbnails/winding_woods.png" alt="Winding Woods">
-                <div class="item-desc">Winding Woods</div>
-            </a>
-        </div>
-        <div class="item">
-            <a href="./pages/projects/space_walk.html">
-                <img src="/assets/homepage_thumbnails/space_walk.png" alt="Space Walk">
-                <div class="item-desc">Space Walk</div>
-            </a>
-        </div>
-        <div class="item">
-            <a href="/pages/projects/cave_crawler.html">
-                <img src="/assets/homepage_thumbnails/cave_crawler.jpg" alt="Cave Crawler">
-                <div class="item-desc">Cave Crawler</div>
-            </a>
-        </div>
-    </div>
-
-    <div class="spacer"></div>
-
-    <footer>
-        evanyoussef8@gmail.com<br>
-        <a href="https://www.linkedin.com/in/evan-youssef-600070229/" target="_blank">LinkedIn</a> |
-        <a href="https://github.com/youssefevan/" target="_blank">GitHub</a> |
-        <a href="https://store.steampowered.com/curator/45180747" target="_blank">Steam</a> |
-        <a href="https://evan12811.itch.io/" target="_blank">Itch.io</a>
-    </footer>
-
+  <script src="script.js"></script>
 </body>
-</html> 
+
+</html>
