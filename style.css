@@ -165,6 +165,18 @@ section {
     color: #ccc;
 }
 
+input[type="color"] {
+    all: unset;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 30px;
+    border: 1px solid white;
+    padding: 0;
+    cursor: pointer;
+}
+
+
 footer {
     background: #222;
     text-align: center;
