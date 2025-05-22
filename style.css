@@ -45,10 +45,14 @@ section {
 
 #skills {
     padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 #projects {
     padding-bottom: 4rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .project-grid {
@@ -165,6 +169,7 @@ footer {
     background: #222;
     text-align: center;
     padding: 1rem;
+    padding-bottom: 6rem;
 }
 
 @media (max-width: 600px) {
