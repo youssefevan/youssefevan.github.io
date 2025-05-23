@@ -148,21 +148,36 @@ section {
     background: #222;
 }
 
+
 #teapot-controls {
     margin-top: 1rem;
     font-size: 0.9rem;
-}
-
-#teapot-controls input[type=range],
-#teapot-controls input[type=color] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     width: 100%;
-    margin-bottom: 0.5rem;
 }
 
 #teapot-controls label {
-    display: block;
-    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     color: #ccc;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#teapot-controls input[type="range"] {
+    flex: 1;
+    max-width: 150px;
+    margin: 0;
+}
+
+#teapot-controls input[type="color"] {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    cursor: pointer;
 }
 
 footer {
