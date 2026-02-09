@@ -2,296 +2,261 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evan Youssef | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <script type="text/javascript" src="./youssef-6120-lab6/common_files/mat_vec.js"></script>
-  <script type="text/javascript" src="./youssef-6120-lab6/common_files/utils.js"></script>
-  <script type="text/javascript" src="./youssef-6120-lab6/common_files/xform2.js"></script>
-  <script type="text/javascript" src="./youssef-6120-lab6/lab6.js"></script>
-
-  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/MV.js"></script>
-  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/createTeapotData.js"></script>
-  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/patches.js"></script>
-  <script type="text/javascript" src="./youssef-6120-lab6/teapot_generator/vertices.js"></script>
-
-
-  <script id="vertex-shader" type="x-shader/x-vertex">
-    attribute vec4 vPosition, vNormal;
-    attribute vec3 vColor;
-    varying vec4 color;
-
-    uniform mat4 M_comp;
-    uniform mat4 M_model;
-    uniform mat4 M_camera;
-    uniform mat4 M_projection;
-
-    uniform vec4 lightPos;
-
-    varying vec3 N, L, E;
-
-    void main() {
-      mat4 M_modelView = M_camera * M_model;
-      vec3 pos = -(M_modelView * vPosition).xyz;
-      vec3 light = lightPos.xyz;
-
-      L = normalize(light - pos);
-      E = normalize(pos);
-      N = normalize((M_modelView*vNormal).xyz);
-
-      gl_Position = M_projection*M_modelView*vec4(vPosition.xyz, 1.);
-    }
-  </script>
-
-  <script id="fragment-shader" type="x-shader/x-fragment">
-
-    precision mediump float;
-    varying vec4 color;
-
-    uniform vec4 ambientProduct, diffuseProduct, specularProduct;
-    uniform float shininess;
-    varying vec3 N, L, E;
-
-    void main() {
-      
-      vec4 fColor;
-
-      vec3 H = normalize(L+E);
-      vec4 ambient = ambientProduct;
-      float Kd = max(dot(L, N), 0.0);
-      vec4 diffuse = Kd * diffuseProduct;
-
-      float Ks = pow(max(dot(N, H), 0.0), shininess);
-      vec4 specular = Ks * specularProduct;
-
-      if (dot(L, N) < 0.0) {
-        specular = vec4(0.0, 0.0, 0.0, 1.0);
-      }
-
-      fColor = ambient + diffuse + specular;
-      fColor.a = 1.0;
-
-      gl_FragColor = fColor;
-    }
-  </script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
+<title>Evan Youssef | Portfolio</title>
 
 <body>
-  <header>
-    <h1>Evan Youssef</h1>
-    <p>Computer Science Major at UNC Charlotte</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-    </nav>
-  </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I’m a recent graduate from UNC Charlotte with both a B.S. and M.S. in Computer Science. I’m passionate about
-      building reliable, scalable software and creating engaging interactive experiences. I’m currently seeking
-      opportunities in software engineering and game development where I can apply my technical skills, creativity, and
-      love for problem-solving.
-    <div id="links">Find me here:
-      <a href="https://www.linkedin.com/in/evan-youssef/" target="_blank">LinkedIn</a> |
-      <a href="https://github.com/youssefevan/" target="_blank">GitHub</a> |
-      <a href="https://store.steampowered.com/curator/45180747" target="_blank">Steam</a> |
-      evanyoussef8@gmail.com
+    <div class="main">
+        <section id="intro">
+            <h1>I'm <span id="highlight-blue">Evan Youssef</span>, a recent Computer Science graduate seeking software
+                engineering and game development roles.</h1>
+            <h2>I spend my time developing games in Godot, Unity, and Unreal. Check out some of my projects.</h2>
+            <h2>Find me here:</h2>
+            <div class="chip-list">
+                <a href="https://www.linkedin.com/in/evan-youssef/" target="_blank">
+                    <div class="chip" id="alt-orange">LinkedIn</div>
+                </a>
+                <a href="https://github.com/youssefevan" target="_blank">
+                    <div class="chip" id="alt-orange">GitHub</div>
+                </a>
+                <a href="https://store.steampowered.com/curator/45180747" target="_blank">
+                    <div class="chip" id="alt-orange">Steam</div>
+                </a>
+                <a>
+                    <div class="chip">evanyoussef8@gmail.com</div>
+                </a>
+
+            </div>
+        </section>
+        <section id="content">
+            <h2>Education</h2>
+            <p>
+                <span id="highlight-blue">MS in Computer Science</span><br>
+                UNC Charlotte, Dec 2025<br>
+            </p>
+            <p>
+                <span id="highlight-blue">BS in Computer Science</span><br>
+                UNC Charlotte, Dec 2024
+            </p>
+        </section>
+        <section id="content">
+            <div id="skills">
+                <h2>Skills</h2>
+                <p>Programming</p>
+                <div class="chip-list">
+                    <span class="chip">Python</span>
+                    <span class="chip">C/C++/C#</span>
+                    <span class="chip">Java</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">.NET</span>
+                    <span class="chip">REST APIs</span>
+                    <span class="chip">SQL</span>
+                    <span class="chip">MongoDB</span>
+                    <span class="chip">AWS</span>
+                </div>
+                <br>
+                <p>Fields</p>
+                <div class="chip-list">
+                    <span class="chip">Software Engineering</span>
+                    <span class="chip">Game Development</span>
+                    <span class="chip">Artificial Intelligence</span>
+                    <span class="chip">Scrum/Agile</span>
+                    <span class="chip">Database Systems</span>
+                </div>
+                <br>
+                <p>Game Engines</p>
+                <div class="chip-list">
+                    <span class="chip">Godot</span>
+                    <span class="chip">Unity</span>
+                    <span class="chip">Unreal</span>
+                </div>
+                </p>
+            </div>
+        </section>
+        <section id="content">
+            <div id="projects">
+                <h2>Projects</h2>
+
+                <!--Roofing Bulldog-->
+                <div class="project">
+                    <div class="project-title">
+                        <h3 id="highlight-blue">Roofing Bulldog Website</h3>
+                        <h3 id="year">Fall 2025</h3>
+                    </div>
+                    <p>A landing page for Roofing Bulldog.</p>
+                    <img src="./assets/thumbnails/roofing_bulldog.png" alt="Roofing Bulldog landing page">
+                    <p>
+                        I was <span id="highlight-blue">contracted</span> by a local roofing company to create their
+                        company landing page. I
+                        worked
+                        <span id="highlight-blue">solo</span> in <span id="highlight-blue">HTML, CSS, and
+                            JavaScript.</span>
+                    </p>
+
+                    <div class="chip-list">
+                        <a href="https://github.com/youssefevan/roofing-bulldog-website" target="_blank">
+                            <div class="chip" id="alt-orange">GitHub</div>
+
+                        </a>
+                        <a href="https://roofingbulldog.com/" target="_blank">
+                            <div class="chip" id="alt-orange">Website</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--NinerPlanner-->
+                <div class="project">
+                    <div class="project-title">
+                        <h3 id="highlight-blue">NinerPlanner</h3>
+                        <h3 id="year">Spring 2025</h3>
+                    </div>
+                    <p>
+                        A course and schedule manager for UNC Charlotte students and faculty, developed
+                        in a <span id="highlight-blue">team</span>
+                        for a <span id="highlight-blue">Software Systems & Design Course.</span>
+                    </p>
+                    <img src="./assets/thumbnails/ninerplanner.png" alt="Visual Course Schedule for NinerPlanner">
+                    <p>My contributions include the Visual Course Schedule, as well as portions of the Course
+                        Information and Registered Course Plan functionalities and styling.
+                    </p>
+                    <p>
+                        For this project, I utilized <span id="highlight-blue"> MongoDB, NodeJS, and Expo.</span>
+                    </P>
+
+                    <div class="chip-list">
+                        <a href="https://github.com/lnalewaja/NinerPlanner" target="_blank">
+                            <div class="chip" id="alt-orange">GitHub</div>
+
+                        </a>
+                    </div>
+                </div>
+
+                <!--Cave Crawler 2-->
+                <div class="project">
+                    <div class="project-title">
+                        <h3 id="highlight-blue">Cave Crawler 2</h3>
+                        <h3 id="year">Fall 2024</h3>
+                    </div>
+                    <p>
+                        A is a 2D-platformer made in <span id="highlight-blue">Godot</span> and published
+                        on <span id="highlight-blue">Steam.</span>
+                    </p>
+                    <video width="100%" controls title="Cave Crawler 2">
+                        <source
+                            src="https://video.fastly.steamstatic.com/store_trailers/257052189/movie480_vp9.webm?t=1725403869"
+                            type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p>
+                        I developed this game <span id="highlight-blue">solo,</span> as a hobby project to sharpen my
+                        game development skills. The game includes 15 levels, 3 boss fights, unique enemies, and a
+                        built-in level editor.
+                    </p>
+                    <p>
+                        The game has over <span id="highlight-blue">3,500 downloads and 91% positive reviews.</span>
+                    </p>
+
+                    <div class="chip-list">
+                        <a href="https://github.com/youssefevan/cave-crawler-2" target="_blank">
+                            <div class="chip" id="alt-orange">GitHub</div>
+                        </a>
+                        <a href="https://store.steampowered.com/app/3000490/Cave_Crawler_2/" target="_blank">
+                            <div class="chip" id="alt-orange">Steam</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Pyramid Pirate-->
+                <div class="project">
+                    <div class="project-title">
+                        <h3 id="highlight-blue">Pyramid Pirate</h3>
+                        <h3 id="year">Spring 2024</h3>
+                    </div>
+                    <p>
+                        A top-down roguelike <span id="highlight-blue">rated #1 overall</span> in the
+                        Spring 2024 UNCC Game Jam.
+                    </p>
+                    <video width="100%" controls title="Pyramid Pirate">
+                        <source src="./assets/videos/Pyramid Pirate Gameplay.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p>
+                        I <span id="highlight-blue">solo-developed</span> this game in 48 hours for a game jam. My main
+                        focus was prodcedual generation,
+                        using a walker algoirthm to generate rooms and hallways.
+                    </p>
+
+                    <div class="chip-list">
+                        <a href="https://evan12811.itch.io/pyramid-pirate" target="_blank">
+                            <div class="chip" id="alt-orange">Itch.io</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Winding Woods-->
+                <div class="project">
+                    <div class="project-title">
+                        <h3 id="highlight-blue">Winding Woods</h3>
+                        <h3 id="year">Spring 2023</h3>
+                    </div>
+                    <p>
+                        A top-down action-adventure developed in 48 hours for the Spring 2023 UNCC Game Jam.
+                    </p>
+                    <video width="100%" controls title="Winding Woods">
+                        <source src="./assets/videos/Winding Woods Gameplay.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p>
+                        This is a game I made <span id="highlight-blue">with a friend,</span> where I managed most of
+                        the programming. My contributions
+                        include gameplay systems such as movement, combat, and level-looping.
+                    </p>
+
+                    <div class="chip-list">
+                        <a href="https://evan12811.itch.io/winding-woods" target="_blank">
+                            <div class="chip" id="alt-orange">Itch.io</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!--Cave Crawler-->
+                <div class="project">
+                    <div class="project-title">
+                        <h3 id="highlight-blue">Cave Crawler</h3>
+                        <h3 id="year">2022</h3>
+                    </div>
+                    <p>
+                        A pixel-platformer set in an underground cave network, gaining over <span
+                            id="highlight-blue">120,000 downloads</span> on
+                        Steam with <span id="highlight-blue">25% positive ratings.</span>
+                    </p>
+                    <video width="100%" controls title="Cave Crawler">
+                        <source
+                            src="https://video.fastly.steamstatic.com/store_trailers/256867900/movie480_vp9.webm?t=1641783389"
+                            type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p>
+                        Being my first Steam release, developing Cave Crawler solidified my interest in game development
+                        and was an invaluable learning experience.
+                    </p>
+                    <p>
+                        The game has over <span id="highlight-blue">3,500 downloads and 91% positive reviews.</span>
+                    </p>
+
+                    <div class="chip-list">
+                        <a href="https://store.steampowered.com/app/1865440/Cave_Crawler/" target="_blank">
+                            <div class="chip" id="alt-orange">Steam</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
-    </p>
-  </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Python, C/C++, Java, JavaScript</li>
-      <li>Software Engineering, Design & Development</li>
-      <li>Machine Learning & AI</li>
-      <li>Godot & Unity, Game Development</li>
-      <li>Scrum/Agile Development</li>
-    </ul>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="filters">
-      <button class="active" onclick="filterProjects(this, 'all')">All</button>
-      <button onclick="filterProjects(this, 'game')">Games</button>
-      <button onclick="filterProjects(this, 'course')">Coursework</button>
-      <button onclick="filterProjects(this, 'web')">Web</button>
-    </div>
-    <div class="project-grid">
-
-      <div class="project web">
-        <h3>Roofing Bulldog Website</h3>
-        <p>A webpage for a local roofing company.</p>
-        <p>I worked with a local roofing company to create their landing page.</p>
-        <img src="./assets/thumbnails/roofing_bulldog.png">
-        <ul>
-          <li>Developed Fall 2025</li>
-          <li>Contract</li>
-          <li>HTML, CSS, JavaScript</li>
-        </ul>
-        <div class="project-links"><a target="_blank" href="https://www.roofingbulldog.com">Rooding Bulldog</a> | <a
-            target="_blank" href="https://github.com/youssefevan/roofing-bulldog-website">GitHub</a></div>
-      </div>
-
-      <div class="project course">
-        <h3>NinerPlanner</h3>
-        <p>A course and schedule manager for UNC Charlotte students and faculty.</p>
-        <p>My contributions include the Visual Course Schedule, as well as portions of the Course Information and
-          Registered Course Plan functionalities and styling. This project was developed for a Software Systems & Design
-          Course.</p>
-        <img src="./assets/thumbnails/ninerplanner.png">
-        <ul>
-          <li>Developed Spring 2025</li>
-          <li>Team Project</li>
-          <li>MongoDB, NodeJS, Expo</li>
-        </ul>
-        <div class="project-links"><a target="_blank" href="https://github.com/lnalewaja/NinerPlanner">GitHub</a></div>
-      </div>
-
-      <div class="project game">
-        <h3>Cave Crawler 2</h3>
-        <p>A 2D-platformer game made in Godot, published on Steam.</p>
-        <p>I developed this as a hobby project to sharpen my game development skills. The game includes 15 levels, 3
-          boss fights, unique enemies, and a built-in level editor.</p>
-        <video width="100%" controls title="Cave Crawler 2">
-          <source src="https://video.fastly.steamstatic.com/store_trailers/257052189/movie480_vp9.webm?t=1725403869"
-            type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <ul>
-          <li>Released October 2024</li>
-          <li>Solo Project</li>
-          <li>Godot Engine</li>
-        </ul>
-        <div class="project-links"><a target="_blank"
-            href="https://store.steampowered.com/app/3000490/Cave_Crawler_2/">Steam</a> |
-          <a target="_blank" href="https://github.com/youssefevan/cave-crawler-2">GitHub</a>
-        </div>
-      </div>
-
-      <div class="project course">
-        <h3>Local Illumination Model</h3>
-        <p>A local illumination model written in JavaScript and GLSL.</p>
-        <p>I developed this project for a Computer Graphics course, focusing on the graphics pipline, including
-          implementation.</p>
-        <ul>
-          <li>Developed Fall 2024</li>
-          <li>Solo Project</li>
-          <li>JavaScript, GLSL</li>
-        </ul>
-
-        <div class="canvas-wrapper">
-          <canvas id="gl-canvas" width="300" height="300">
-            Oops ... your browser doesn't support the HTML5 canvas element.
-          </canvas>
-        </div>
-        <div id="teapot-controls">
-          <label>Diffuse intensity<br>
-            <input type="range" min="1" max="100" value="70" class="slider" id="diffuse">
-          </label><br>
-          <label>Specular intensity<br>
-            <input type="range" min="1" max="100" value="70" class="slider" id="specular">
-          </label><br>
-          <label>Shininess<br>
-            <input type="range" min="1" max="100" value="10" class="slider" id="shine">
-          </label><br>
-          <label>Diffuse reflectivity<br>
-            <input type="color" id="diffRef" value="#356dbf">
-          </label><br>
-          <label>Specular reflectivity<br>
-            <input type="color" id="specRef" value="#122162">
-          </label>
-        </div>
-      </div>
-
-      <div class="project game">
-        <h3>Pyramid Pirate</h3>
-        <p>A top-down roguelike rated #1 overall in the Spring 2024 UNCC Game Jam.</p>
-        <p>I made this game to practice prodcedual generation, using a walker algoirthm to generate rooms and hallways.
-        </p>
-        <video width="100%" controls title="Pyramid Pirate">
-          <source src="/assets/videos/Pyramid Pirate Gameplay.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <ul>
-          <li>Released Spring 2024</li>
-          <li>Solo Project</li>
-          <li>Godot Engine</li>
-        </ul>
-        <div class="project-links"><a target="_blank" href="https://evan12811.itch.io/pyramid-pirate">Play
-            on Itch.io</a> | <a target="_blank" href="https://itch.io/jam/2024-spring-game-jam/rate/2591033">Game Jam
-            Page</a></div>
-      </div>
-
-      <div class="project game">
-        <h3>Winding Woods</h3>
-        <p>A top-down action-adventure developed in 48 hours for the Spring 2023 UNCC Game Jam.</p>
-        <p>My contributions include gameplay systems such as movements, combat, and level-looping.</p>
-        <video width="100%" controls title="Winding Woods">
-          <source src="assets/videos/Winding Woods Gameplay.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <ul>
-          <li>Released Spring 2023</li>
-          <li>Team Project</li>
-          <li>Godot Engine</li>
-        </ul>
-        <div class="project-links"><a target="_blank" href="https://evan12811.itch.io/winding-woods">Play
-            on Itch.io</a> | <a target="_blank" href="https://itch.io/jam/2023-spring-game-jam/rate/2032526">Game Jam
-            Page</a>
-        </div>
-      </div>
-
-      <div class="project game">
-        <h3>Cave Crawler</h3>
-        <p>A pixel-platformer set in an underground cave network, gaining over 120,000 downloads on Steam with 95%
-          positive ratings.</p>
-        <p>Being my first Steam release, developing Cave Crawler solidified my interest in game development and was an
-          invaluable
-          learning experience.</p>
-        <video width="100%" controls title="Cave Crawler">
-          <source src="https://video.fastly.steamstatic.com/store_trailers/256867900/movie480_vp9.webm?t=1641783389"
-            type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <ul>
-          <li>Released January 2022</li>
-          <li>Solo Project</li>
-          <li>Godot Engine</li>
-        </ul>
-        <div class="project-links"><a target="_blank"
-            href="https://store.steampowered.com/app/1865440/Cave_Crawler/">Steam</a> | <a target="_blank"
-            href="https://github.com/youssefevan/senior-project">GitHub</a>
-        </div>
-      </div>
-
-      <!--
-      <div class="project demo">
-        <h3>Demo Test</h3>
-        <p>Description...</p>
-      </div>
-      -->
-
-    </div>
-  </section>
-
-  <footer>
-    evanyoussef8@gmail.com<br>
-    <a href="https://www.linkedin.com/in/evan-youssef-600070229/" target="_blank">LinkedIn</a> |
-    <a href="https://github.com/youssefevan/" target="_blank">GitHub</a> |
-    <a href="https://store.steampowered.com/curator/45180747" target="_blank">Steam</a>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 
 </html>

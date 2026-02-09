@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --bg: rgb(17, 17, 19);
+    --text: rgb(202, 202, 202);
+    --text-dull: rgb(121, 121, 121);
+
+    --text-highlight-white: rgb(241, 241, 241);
+    --text-highlight-blue: rgb(126, 188, 207);
+    --text-highlight-orange: rgb(218, 186, 140);
+
+    --button-hover-white: rgb(26, 26, 29);
+    --button-hover-blue: rgb(32, 39, 41);
+    --button-hover-orange: rgb(34, 30, 26);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    font-family: "Roboto", sans-serif;
+}
+
+section {
+    border-bottom: 1px solid var(--text-dull);
+    padding-bottom: 24px;
+    padding-top: 16px;
+}
+
+.main {
+    color: var(--text);
+    width: 600px;
+    min-height: 100vh;
+    margin: auto;
+    font-size: 16px;
+    border-left: 1px solid var(--text-dull);
+    padding: 30px;
+    padding-top: 100px;
+}
+
+.main h1 {
+    font-size: 28px;
+}
+
+.main h2 {
+    font-size: 20px;
+}
+
+.main h3 {
+    font-size: 18px;
+}
+
+.main p {
+    font-size: 16px;
+}
+
+.main section #highlight-white {
+    color: var(--text-highlight-white);
+    font-weight: bold;
+}
+
+.main section #highlight-blue {
+    color: var(--text-highlight-blue);
+    font-weight: bold;
+}
+
+.main section #highlight-orange {
+    color: var(--text-highlight-orange);
+    font-weight: bold;
+}
+
+.chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    /*justify-content: center;*/
+}
+
+.chip {
+    padding: 12px;
+    background-color: var(--button-hover-white);
+    border: 1px solid var(--text-dull);
+    color: var(--text);
+    border-radius: 1px;
+}
+
+.chip#alt-blue {
+    background-color: var(--button-hover-blue);
+    border: 1px solid var(--text-highlight-blue);
+    color: var(--text-highlight-blue);
+}
+
+.chip#alt-orange {
+    background-color: var(--button-hover-orange);
+    border: 1px solid var(--text-highlight-orange);
+    color: var(--text-highlight-orange);
+}
+
+a {
+    text-decoration: none;
+}
+
+a .chip {
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+a .chip#alt-orange:hover {
+    transition: 0.3s;
+    background-color: var(--button-hover-blue);
+    border: 1px solid var(--text-highlight-blue);
+    color: var(--text-highlight-blue);
+}
+
+.project button {
+    margin: auto;
+    width: 100%;
+    background: var(--bg);
+    text-align: left;
+}
+
+.project-title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+.project-title h3 {
+    margin-bottom: 0px;
+}
+
+.project-title h3#year {
+    font-weight: normal;
+    color: var(--text-dull);
+}
+
+.project {
+    border-bottom: 1px dashed var(--text-dull);
+    padding-bottom: 24px;
+}
