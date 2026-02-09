@@ -28,8 +28,9 @@ section {
 }
 
 .main {
+    box-sizing: border-box;
     color: var(--text);
-    width: 600px;
+    width: 660px;
     min-height: 100vh;
     margin: auto;
     font-size: 16px;
@@ -138,4 +139,24 @@ a .chip#alt-orange:hover {
 .project {
     border-bottom: 1px dashed var(--text-dull);
     padding-bottom: 24px;
+}
+
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 640px) {
+    .main {
+        width: 100%;
+        border-left: none;
+        padding: 16px;
+    }
 }
