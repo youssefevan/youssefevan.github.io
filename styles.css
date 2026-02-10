@@ -17,8 +17,8 @@
 body {
     margin: 0;
     padding: 0;
-    background: var(--bg);
     font-family: "Roboto", sans-serif;
+    background-image: url(./assets/bg.png);
 }
 
 section {
@@ -37,6 +37,8 @@ section {
     border-left: 1px solid var(--text-dull);
     padding: 30px;
     padding-top: 100px;
+    background: var(--bg);
+    box-shadow: 0 0 24px 12px rgba(0, 0, 0, 0.3);
 }
 
 .main h1 {
