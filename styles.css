@@ -35,6 +35,7 @@ section {
     margin: auto;
     font-size: 16px;
     border-left: 1px solid var(--text-dull);
+    border-right: 1px solid var(--text-dull);
     padding: 30px;
     padding-top: 100px;
     background: var(--bg);
