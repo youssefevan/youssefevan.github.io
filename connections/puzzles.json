@@ -1,0 +1,42 @@
+[
+    {
+        "categories": {
+            "easy": {
+                "description": "units of measurement",
+                "words": [
+                    "mole",
+                    "calorie",
+                    "watt",
+                    "amp"
+                ]
+            },
+            "medium": {
+                "description": "_____ board",
+                "words": [
+                    "score",
+                    "surf",
+                    "dash",
+                    "card"
+                ]
+            },
+            "hard": {
+                "description": "kinds of knots",
+                "words": [
+                    "square",
+                    "bowline",
+                    "clove",
+                    "reef"
+                ]
+            },
+            "hardest": {
+                "description": "homophones of letters",
+                "words": [
+                    "sea",
+                    "queue",
+                    "tea",
+                    "you"
+                ]
+            }
+        }
+    }
+]
