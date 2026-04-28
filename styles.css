@@ -187,19 +187,24 @@ a .chip#alt-orange:hover {
 
 .project-content {
     flex: 1;
+    min-width: 280px;
 }
 
-.project video {
+.project-media {
+    flex: 1;
+    min-width: 280px;
+}
+
+.project-media img,
+.project-media video {
+    width: 100%;
     height: auto;
     flex: 1;
+    display: block;
+    border-radius: 6px;
 }
 
-.project img {
-    height: auto;
-    flex: 1;
-}
-
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
     .nav {
         display: none;
     }
