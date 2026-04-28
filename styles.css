@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --bg: rgb(17, 17, 19);
-    --text: rgb(202, 202, 202);
-    --text-dull: rgb(121, 121, 121);
+    --bg: #111;
+    --text: #d6d6d6;
+    --text-dull: rgb(167, 167, 167);
 
     --text-highlight-white: rgb(241, 241, 241);
     --text-highlight-blue: rgb(126, 212, 238);
@@ -14,48 +14,81 @@
     --button-hover-orange: rgb(34, 30, 26);
 }
 
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg);
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: "Roboto", sans-serif;
+    font-family: "Montserrat", sans-serif;
     background-image: url(./assets/bg.png);
 }
 
 section {
-    border-bottom: 1px solid var(--text-dull);
-    padding-bottom: 24px;
-    padding-top: 16px;
+    padding: 16px 128px 24px 128px;
 }
 
-.main {
-    box-sizing: border-box;
-    color: var(--text);
-    width: 660px;
-    min-height: 100vh;
-    margin: auto;
-    font-size: 16px;
-    border-left: 1px solid var(--text-dull);
-    border-right: 1px solid var(--text-dull);
-    padding: 30px;
-    padding-top: 100px;
-    background: var(--bg);
-    box-shadow: 0 0 24px 12px rgba(0, 0, 0, 0.3);
+#about,
+#projects,
+#content {
+    scroll-margin-top: 56px;
 }
 
-.main h1 {
-    font-size: 28px;
+.nav {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    color: var(--text-dull);
+    background-color: var(--bg);
+    padding-top: 20px;
+    text-decoration: none;
+    z-index: 100;
 }
 
-.main h2 {
+.nav h1 {
+    padding: 6px 8px 6px 32px;
+    display: block;
+    color: var(--text-highlight-blue);
+    /*margin-bottom: 0;*/
+
+}
+
+/*.nav p {
+    padding: 6px 8px 6px 32px;
+    display: block;
+    color: var(--text-highlight-blue);
+    margin-top: 0;
+}*/
+
+.nav a {
+    padding: 6px 8px 6px 32px;
+    text-decoration: none;
+    display: block;
     font-size: 20px;
 }
 
-.main h3 {
-    font-size: 18px;
+.nav a:visited,
+.nav a:link {
+    color: var(--text-dull);
+}
+
+.nav a:hover {
+    color: var(--text);
+}
+
+.main {
+    color: var(--text);
+    margin: auto;
+    margin-left: 300px;
+    font-size: 16px;
+    border-left: 1px solid var(--text-dull);
+    padding: 128px 0px 128px 0px;
 }
 
 .main p {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .main section #highlight-white {
@@ -71,6 +104,16 @@ section {
 .main section #highlight-orange {
     color: var(--text-highlight-orange);
     font-weight: bold;
+}
+
+.columns {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
 }
 
 .chip-list {
@@ -134,32 +177,50 @@ a .chip#alt-orange:hover {
     margin-bottom: 0px;
 }
 
-.project-title h3#year {
-    font-weight: normal;
-    color: var(--text-dull);
-}
-
 .project {
-    border-bottom: 1px dashed var(--text-dull);
+    padding-top: 24px;
     padding-bottom: 24px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
 }
 
-video {
-    max-width: 100%;
-    height: auto;
-    display: block;
+.project-content {
+    flex: 1;
 }
 
-img {
-    max-width: 100%;
+.project video {
     height: auto;
-    display: block;
+    flex: 1;
+}
+
+.project img {
+    height: auto;
+    flex: 1;
 }
 
 @media (max-width: 640px) {
+    .nav {
+        display: none;
+    }
+
     .main {
-        width: 100%;
+        margin-left: 0;
         border-left: none;
         padding: 16px;
+    }
+
+    section {
+        padding: 16px;
+    }
+
+    .project {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .project video,
+    .project img {
+        width: 100%;
     }
 }
